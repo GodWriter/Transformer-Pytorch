@@ -22,7 +22,7 @@ def create_data():
     tgt_vocab_size = len(tgt_vocab)
     idx2word = {i: w for i, w in enumerate(tgt_vocab)}
 
-    return [sentences, src_vocab, tgt_vocab]
+    return [sentences, src_vocab, tgt_vocab], src_vocab_size, tgt_vocab_size, idx2word
 
 
 def make_data(sentences, src_vocab, tgt_vocab):
@@ -54,15 +54,16 @@ class MyDataSet(Data.Dataset):
         return self.enc_inputs[idx], self.dec_inputs[idx], self.dec_outputs[idx]
 
 
-if __name__ == '__main__':
-    enc_inputs, dec_inputs, dec_outputs = make_data(*create_data())
-
-    data_loader = Data.DataLoader(dataset=MyDataSet(enc_inputs, dec_inputs, dec_outputs),
-                                  batch_size=2,
-                                  shuffle=True)
-
-    for data in enumerate(data_loader):
-        print(data)
+# if __name__ == '__main__':
+#     inputs, src_vocab_size, tgt_vocab_size, idx2word = create_data()
+#     enc_inputs, dec_inputs, dec_outputs = make_data(*inputs)
+#
+#     data_loader = Data.DataLoader(dataset=MyDataSet(enc_inputs, dec_inputs, dec_outputs),
+#                                   batch_size=2,
+#                                   shuffle=True)
+#
+#     for data in enumerate(data_loader):
+#         print(data)
 
 
 
